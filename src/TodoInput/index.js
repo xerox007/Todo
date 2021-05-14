@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagic } from '@fortawesome/free-solid-svg-icons';
 
 const TodoInput = (props) => {
-    const { onWishCreate, onWishInputChange, wish } = props;
+    const { onWishCreate, onWishInputChange, onWishInputKeyDown, wish } = props;
     return (
         <div className="form-row">
             <div className="col-lg-6 mb-3">
@@ -11,7 +11,7 @@ const TodoInput = (props) => {
                     <div className="input-group-prepend">
                     <span className="input-group-text" id="inputGroupPrepend">Enter your wish</span>
                     </div>
-                    <input onChange={onWishInputChange} value={wish} type="text" className="form-control"  id="wish-input" placeholder="Your wish will come true..." />
+                    <input onKeyDown={onWishInputKeyDown} onChange={onWishInputChange}  value={wish} type="text" className="form-control"  id="wish-input" placeholder="Your wish will come true..." />
                 </div>
             </div>
             <div className="col-lg-4">

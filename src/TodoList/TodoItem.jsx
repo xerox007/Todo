@@ -7,8 +7,9 @@ const TodoItem = (props) => {
     const strikeThroughClass = todo.completed ? 'line-through' : ''; 
     const checkButtonClass = todo.completed ? 'btn-secondary' : 'btn-success'; 
     const checkButtonIcon = todo.completed ? faTimesCircle : faCheck;
+    const wishListRowClass = todo.completed ? 'list-group-item-success' : 'list-group-item-action';
     return( 
-        <div className="list-group-item list-group-item-action">
+        <div className={`list-group-item ${wishListRowClass}`}>
             <div className="row">
                 <div className="col-lg-10 col-sm-10">
                     <div className="mt-2" style={{ textDecorationLine: strikeThroughClass }}>

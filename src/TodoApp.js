@@ -8,18 +8,13 @@ class TodoApp extends React.Component {
     this.handleWishCreate = this.handleWishCreate.bind(this);
     this.handleWishDelete = this.handleWishDelete.bind(this);
     this.handleWishToggle = this.handleWishToggle.bind(this);
+    this.handleWishInputKeyDown = this.handleWishInputKeyDown.bind(this);
   }
 
-  latestid = 5;
+  latestid = 0;
   state = {
     wishInput: '',
-    data: [
-      { id: 1, description: 'This is description1', completed: false },
-      { id: 2, description: 'This is description2', completed: false },
-      { id: 3, description: 'This is description3', completed: false },
-      { id: 4, description: 'This is description1', completed: false },
-      { id: 5, description: 'This is description5', completed: true }
-    ]
+    data: []
   };
 
   handleWishDelete (wishID) {
@@ -46,7 +41,6 @@ class TodoApp extends React.Component {
 
   // 2. By passing the Wish Object Reference
   handleWishToggle (wishObj) {
-    debugger;
     const updatedData = [...this.state.data];
     const index = updatedData.indexOf(wishObj);
     updatedData[index] = {...wishObj};
@@ -54,9 +48,15 @@ class TodoApp extends React.Component {
     this.setState({ data: updatedData });
   }
 
+  handleWishInputKeyDown (event) {
+    if (event.key === "Enter" ) {
+      this.handleWishCreate();
+    }
+  }
+
   handleWishCreate () {
     const updatedData = [ ...this.state.data ];
-    updatedData.push({ id: this.latestid + 1, description: this.state.wishInput, completed: false })
+    updatedData.push({ id: this.latestid + 1, description: this.state.wishInput, completed: false, createdDate: new Date() })
     this.latestid++;
     this.setState({ wishInput: '' , data: updatedData });
   }
@@ -72,7 +72,7 @@ class TodoApp extends React.Component {
         <div className="row justify-content-center">
           <h1 className="m-4">WishList: Add your wishes</h1>
         </div>
-        <TodoInput wish={this.state.wishInput} onWishCreate={this.handleWishCreate} onWishInputChange={this.handleWishInputChange}/>
+        <TodoInput wish={this.state.wishInput} onWishCreate={this.handleWishCreate} onWishInputChange={this.handleWishInputChange} onWishInputKeyDown={this.handleWishInputKeyDown}/>
         <TodoList todoList={this.state.data} onWishDelete={this.handleWishDelete} onWishToggle={this.handleWishToggle}/>
       </div>
     );
